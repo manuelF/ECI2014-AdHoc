@@ -1,12 +1,13 @@
 Redes moviles Ad-hoc
 Manuel Ferreria
-====================
+Informe
+--------------------
 
 Cambios realizados
-==================
+------------------
 
 Metodologia de experimentacion
-==============================
+------------------------------
 
 Para realizar el analisis de performance de los distintos protocolos de enrutamiento
 primero armamos un framework de pruebas. En este caso, es un script (*runExperiment.sh*)
@@ -17,7 +18,7 @@ movimientos de los nodos usando las mismas posiciones iniciales (por semilla).
 
 
 Parametros
-=========
+---------
 
 Hemos fijado en 50 nodos la cantidad que vamos a utilizar para los analisis, al ser
 este un numero no trivial de nodos que interactuen. A su vez, mantendremos las
@@ -36,7 +37,7 @@ al cuadrado de lado 200.
 Para cambiar la movilidad de los nodos, podemos alterar dos parametros del modelo.
 Estos son, nodeSpeed y nodePause. Segun el modelo de RandomWaypoint, ambos
 determinan el comportamiento de los nodos con respecto a su posicion en el
-espacio (en nuestro caso, el plano Z=0). La velocidad del nodo altera el tiempo
+espacio (en nuestro caso, el plano Z-0). La velocidad del nodo altera el tiempo
 que el nodo va a estar desplazandose hacia un punto elegido aleatoriamente;
 la pausa es el tiempo que va a esperar al llegar a destino hasta empezar a
 desplazarse nuevamente.
@@ -46,7 +47,7 @@ nodos desde 1m/s (velocidad de un ser humano caminando) hasta 50m/s
 (por ejemplo, automoviles).
 
 Metricas
-========
+--------
 
 Las metricas que nos van a interesar obtener de las simulaciones, para
 luego evaluar la performance van a ser:
@@ -64,12 +65,12 @@ info, para poder ver el instante donde se envia un mensaje entre nodos (y no los
 
 
 Experimentos
-============
+------------
 
 Para medir el % de paquetes recibidos entre los dos protocolos, vamos a probar
 hacerlo variando tanto la movilidad como la densidad (independientemente).
 
-[imagen 1]
+![Comparacion Movilidad AODV-OLSR lado 800](moving_speed_800_size.png)
 
 Aca comparamos el % de paquetes recibidos moviendo la velocidad de los nodos entre 1 y 49m/s.
 Para eso, usamos el script runExperiment.sh, que corre variando la velocidad entre 1 y 49, y para
@@ -88,6 +89,6 @@ por lo cual nos omitimos los problemas que ocasionaria en las mediciones si estu
 hookeados a una capa mas abajo (como UDP).
 
 
-Repetimos aca la misma metodologia pero usando una red muy densa, de lado 200.
+Repetimos aca la misma metodologia pero usando una red muy densa, de 200x200.
 
-[imagen 2]
+![Comparacion Movilidad AODV-OLSR lado 200](moving_speed_200_size.png)
