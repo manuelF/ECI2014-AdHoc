@@ -1,17 +1,14 @@
-Redes moviles Ad-hoc
-Manuel Ferreria
-Informe
+Redes moviles Ad-hoc - ECI 2014 - Informe
 --------------------
 
-Cambios realizados
-------------------
 
 Metodologia de experimentacion
 ------------------------------
 
 Para realizar el analisis de performance de los distintos protocolos de enrutamiento
-primero armamos un framework de pruebas. En este caso, es un script (*runExperiment.sh*)
-que se encarga de correr ambos protocolos usando la misma disposicion inicial de nodos
+primero armamos un framework de pruebas. En este caso, es un par de scripts en shell
+(*runExperiment.sh* y *runExperiment_pernode.sh*)
+que se encargan de correr ambos protocolos usando la misma disposicion inicial de nodos
 y movimientos y capturar las salidas en archivos apropiados. Esto se hace fijando
 la semilla del RNG de cada corrida de modo que se pueda recrear todos los mismos
 movimientos de los nodos usando las mismas posiciones iniciales (por semilla).
@@ -100,8 +97,69 @@ podemos ver como se comporta para un solo nodo los dos protocolos en funcion
 de la velocidad (ya que mantenemos la topologia de la red estable al no variar
 la semilla).
 
+Vamos a tomar como comparacion el mejor caso de AODV comparado contra el mismo de OLSR,
+y luego comprararemos el mejor de OLSR contra el mismo de AODV.
 Tomamos un caso de un nodo que tiene un alto porcentaje de exitos de recepcion de
 mensajes. Vamos a fijar la semila = 8, con la caja de 800x800, mirando el nodo
 10.1.1.3.
 
-![Comparacion Mensajes Recibidos AODV-OLSR lado 800 nodo 3](moving_speed_single_node.png)
+![Comparacion Mensajes Recibidos AODV-OLSR lado 800 un nodo AODV Best](moving_speed_single_node_best_aodv.png)
+
+Ahora comparamos contra el nodo 10.1.1.9 en la corrida de semilla = 9, con el mismo
+tamanio de caja, 800x800.
+
+![Comparacion Mensajes Recibidos AODV-OLSR lado 800 un nodo OLSR Best](moving_speed_single_node_best_olsr.png)
+
+
+Conclusiones
+------------
+
+En estos experimentos comprobamos como se comportan en MANETs de distintos tipos
+estos dos protocolos.
+
+En los graficos 1 y 2, obtuvimos el promedio de paquetes recibidos en 100 corridas.
+Es posible observar una importante mejoria en el porcentaje de recepcion usando AODV.
+Tambien se puede notar que tener una gran movilidad es un factor de complicaciones
+en las comunicaciones. Estos protocolos son de proposito general en las MANETs, por
+lo cual en casos normales de comunicacion andan razonablemente bien, pero en altas
+velocidades promedio de los nodos tienen fallas. Podemos ver que a velocidades de peatones
+y ciclistas (abajo de 20 metros por segundo) se comportan razonablemente bien (un
+poco mejor en la red mas densa, como era de esperar). Pero en cuanto aumenta mas la
+velocidad de los nodos, ya las comunicaciones pierden muchos mas paquetes. Es muy
+complicado mantener rutas en entornos tan dinamicos. OLSR en este caso es claramente
+el peor de los protocolos; con mucho dinamismo en la red las rutas estaticas generadas
+proactivamente por el broadcasting no son ideales. AODV en cambio tiene mucho mejor
+comportamiento, al ser mucho mas adaptable en estos casos.
+Una potencial mejoria para el caso de OLSR seria tener en cuenta la velocidad de los
+nodos a la hora de enviar. Si se pudiera considerar en la capa L2-L3 estos detalles
+del sistema, se podria ajustar el envio de beacons a parametros mas optimos.
+En redes muy dinamicas se podria hacer mas frecuentemente (a riesgo de aumentar el
+ruido de la red), y en redes mas estaticas se podria hacer menos frecuentemente (a riesgo
+de tener rutas potencialmente obsoletas mas seguido).
+
+En los graficos 3 y 4, podemos ver el comportamiento de la recepcion de un nodo corrido
+con una semilla en particular. Este experimento sirve para ver cuantos paquetes recibidos
+tiene un nodo en un sistema que realizan siempre los mismos recorridos. De esta manera,
+con la misma topologia de fondo de la red y los mismos movimientos y variando la
+velocidad de los nodos, podemos recrear el comportamiento de los nodos solamente
+cambiendo el protocolo de routeo.
+Nuevamente aqui observamos el mejor comportamiento de AODV por sobre OLSR. En esta simulacion
+tomamos el nodo con mas paquetes recibidos en AODV y lo comparamos contra el mismo
+pero corriendo en OLSR, y viceversa. Cabe notar que no es el mismo nodo ni la misma
+semilla del RNG, por lo cual podemos apreciar que el protocolo de enrutamiento OLSR
+puede ser mas eficaz en algunas condiciones. Sin embargo, aca comparando el mejor
+de cada uno contra el otro, es todavia muy significativo como para casi todas las velocidades
+AODV se comporta de mejor manera que OLSR, teniendo una tasa de recepcion significativamente
+mayor.
+Se puede notar tambien que ambos graficos presentan un corte en cierto punto;
+ahi es cuandos los grafos de conexion se separan y ya no pueden enviarse mensajes.
+Es decir, por las trayectorias del sistema a esa velocidad, no llegan a enviarse ni un mensaje.
+
+De mas esta decir que estos resultados tienen muchas mas variables de fondo que las
+estudiadas aqui. En un potencial trabajo futuro se podrian tambien analizar temas
+de delay de los paquetes, del jitter existente si se usan multiples rutas, del
+throughput de las comunicaciones. Tambien se podria evaluar con redes mucho mas
+saturadas pero mas estables en posiciones, donde seguramente los protocolos como
+OLSR (proactivos) que arman una topologia de la red mas organizada tendran mejores
+resultados de performance y perdida de paquetes.
+
