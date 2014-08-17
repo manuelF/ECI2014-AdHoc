@@ -42,7 +42,7 @@ que el nodo va a estar desplazandose hacia un punto elegido aleatoriamente;
 la pausa es el tiempo que va a esperar al llegar a destino hasta empezar a
 desplazarse nuevamente.
 
-Estudiaremos el problema fijando la pausa en 1s y variando la velocidad de los
+Estudiaremos el problema fijando la pausa en 0s y variando la velocidad de los
 nodos desde 1m/s (velocidad de un ser humano caminando) hasta 50m/s
 (por ejemplo, automoviles).
 
@@ -84,11 +84,24 @@ mensajes enviados en todas las corridas). Con eso sacamos el % promedio de paque
 por cada velocidad. Esto lo corremos tanto con AODV y con OLSR y comparamos ambos porcentajes
 de paquetes recibidos.
 
-Una cuestion para remarcar, es que aca estamos mirando los paquetes enviados por on-off,
-por lo cual nos omitimos los problemas que ocasionaria en las mediciones si estuvieramos
-hookeados a una capa mas abajo (como UDP).
+Una cuestion para remarcar, es que aca estamos mirando los paquetes enviados por la aplicacion
+on-off, por lo cual nos omitimos los problemas que ocasionaria en las mediciones si
+estuvieramos hookeados a una capa mas abajo (como UDP).
 
 
 Repetimos aca la misma metodologia pero usando una red muy densa, de 200x200.
 
 ![Comparacion Movilidad AODV-OLSR lado 200](moving_speed_200_size.png)
+
+
+Otro experimento interesante es, dado una misma semilla del RNG, ver como se
+comporta algun nodo variando la velocidad a la que se mueva. De esta manera
+podemos ver como se comporta para un solo nodo los dos protocolos en funcion
+de la velocidad (ya que mantenemos la topologia de la red estable al no variar
+la semilla).
+
+Tomamos un caso de un nodo que tiene un alto porcentaje de exitos de recepcion de
+mensajes. Vamos a fijar la semila = 8, con la caja de 800x800, mirando el nodo
+10.1.1.3.
+
+![Comparacion Mensajes Recibidos AODV-OLSR lado 800 nodo 3](moving_speed_single_node.png)
