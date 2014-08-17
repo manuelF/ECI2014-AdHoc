@@ -23,7 +23,7 @@ asignaciones de tareas que se plantearon en la guia orientativa, donde los nodos
 0 a 9 recibien mensajes de los nodos 10 a 19, y los demas solo sirven en la red para
 retransmitir.
 
-Para cambiar la densidad de los nodos, cambiamos el tama\~no del bounding box
+Para cambiar la densidad de los nodos, cambiamos el tamaño del bounding box
 que los contiene. Para hacer eso, debemos alterar los metodos que inicializan
 el ObjectFactory. Para simplificar el problema, nos importaran solamente
 cuadrados, no rectangulos.
@@ -106,7 +106,7 @@ mensajes. Vamos a fijar la semila = 8, con la caja de 800x800, mirando el nodo
 ![Comparacion Mensajes Recibidos AODV-OLSR lado 800 un nodo AODV Best](moving_speed_single_node_best_aodv.png)
 
 Ahora comparamos contra el nodo 10.1.1.9 en la corrida de semilla = 9, con el mismo
-tamanio de caja, 800x800.
+tamaño de caja, 800x800.
 
 ![Comparacion Mensajes Recibidos AODV-OLSR lado 800 un nodo OLSR Best](moving_speed_single_node_best_olsr.png)
 
