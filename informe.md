@@ -1,4 +1,7 @@
-Redes moviles Ad-hoc - ECI 2014 - Informe
+Redes moviles Ad-hoc - Manuel Ferreria
+=================================================
+
+Informe
 --------------------
 
 
